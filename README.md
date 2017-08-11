@@ -24,10 +24,24 @@
    + 逐渐递归...直到根目录下的 node_modules 模块
 3. ### __filename 和 __dirname
    在对 JS 文件的编译中，Node.JS 会自动用一个函数来包裹所对应的文件：
-   
+
    ```js
    (function(exports,require,module,__filname,__dirname){
        ...
    })
    ```
    在执行之后，模块的 `exports` 属性被返回给调用方，其上的任何方法和属性都能被外部调用到，但是包裹的模块内的其余变量、属性都不能被直接调用。
+
+## 3. 核心模块
+1. ### FileSystem
+   `fs`提供2种加载文件的方式，同步/异步加载。异步加载需要提供一个回调函数，部分情况下用来抛出异常。而同步加载则没有回调函数的概念（出错将会立即抛出暂停）。考虑到程序会有若干繁忙的进程，应尽量使用异步加载来避免阻塞进程：
+   ```js
+   const fs = require('fs');
+   fs.rename('/tmp/hello', '/tmp/world', (err) => {
+   if (err) throw err;
+   fs.stat('/tmp/world', (err, stats) => {
+     if (err) throw err;
+     console.log(`文件属性: ${JSON.stringify(stats)}`);
+   });
+   });
+   ```
