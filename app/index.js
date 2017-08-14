@@ -26,7 +26,8 @@ class App {
             if (url.match('action')) {
                 let body = apiServer(url);
                 res.writeHead(200, 'Resolve OK', {
-                    'X-powered-by': 'NodeJS'
+                    'X-powered-by': 'NodeJS',
+                    'Content-Type': 'application/json'
                 });
                 res.end(JSON.stringify(body));
             } else {
