@@ -6,13 +6,10 @@
 const fs = require('fs');
 const path = require('path');
 const staticServer = require('./static-server');
+const apiServer = require('./api');
+
 class App {
     constructor() {}
-    // initServer(req, res) {
-    //     fs.readFile('./public/index.html', 'utf8', (err, data) => {
-    //         res.end(data);
-    //     })
-    // }
 
     //高阶函数
     //process.cwd() 路径相对于本项目 node 的启动环境
@@ -25,8 +22,21 @@ class App {
             // let getPath = (url) => {
             //     return path.resolve(process.cwd(), 'public', `.${url}`);
             // }
-            let body = staticServer(url);
-            res.end(body);
+            //以 action 结尾的 url 认为是 ajax
+            if (url.match('action')) {
+                let body = apiServer(url);
+                res.writeHead(200, 'Resolve OK', {
+                    'X-powered-by': 'NodeJS'
+                });
+                res.end(JSON.stringify(body));
+            } else {
+                let body = staticServer(url);
+                res.writeHead(200, 'Resolve OK', {
+                    'X-powered-by': 'NodeJS'
+                });
+                res.end(body);
+            }
+
         //staticFunction(url);
         }
     }
