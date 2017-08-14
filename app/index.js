@@ -18,27 +18,38 @@ class App {
         //...
         return (req, res) => {
             let {url} = req;
-            //分发 url代码,绝对路径,DRY
-            // let getPath = (url) => {
-            //     return path.resolve(process.cwd(), 'public', `.${url}`);
-            // }
+
+            //返回的字符串
+            let body = '';
+            //请求头部
+            let headers = {};
+
             //以 action 结尾的 url 认为是 ajax
             if (url.match('action')) {
-                let body = apiServer(url);
-                res.writeHead(200, 'Resolve OK', {
-                    'X-powered-by': 'NodeJS',
+                body = JSON.stringify(apiServer(url));
+                headers = {
                     'Content-Type': 'application/json'
-                });
-                res.end(JSON.stringify(body));
-            } else {
-                let body = staticServer(url);
-                res.writeHead(200, 'Resolve OK', {
-                    'X-powered-by': 'NodeJS'
-                });
+                }
+                let finalHeader = Object.assign(headers, {
+                    'X-powered-by': 'Node.js'
+                })
+                res.writeHead(200, 'resolve ok', finalHeader)
                 res.end(body);
+            } else {
+                staticServer(url).then((body) => {
+                    let finalHeader = Object.assign(headers, {
+                        'X-powered-by': 'Node.js'
+                    })
+                    res.writeHead(200, 'resolve ok', finalHeader)
+                    res.end(body);
+                });
             }
+            // let finalHeader = Object.assign(headers, {
+            //     'X-powered-by': 'Node.js'
+            // })
+            // res.writeHead(200, 'resolve ok', finalHeader)
+            // res.end(body);
 
-        //staticFunction(url);
         }
     }
 }
