@@ -45,3 +45,9 @@
    });
    });
    ```
+## 4. Promise
+1. ### 用于一个异步操作的最终完成/失败及其结果的标识。
+   ```js
+   new Promise(function(resolve,reject){...})
+   ```
+
