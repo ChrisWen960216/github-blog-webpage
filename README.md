@@ -50,4 +50,12 @@
    ```js
    new Promise(function(resolve,reject){...})
    ```
+2. ### 三个状态
+   - pending `()=>{}`
+   - rejected `(reject)=>{}`
+   - fulfilled `(resolve,reject)=>{}`
+
+3. ### 原型和方法
+   - Promise.prototype.then
+   - Promise.prototype.catch
 

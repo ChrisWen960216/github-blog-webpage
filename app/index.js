@@ -25,16 +25,22 @@ class App {
             let headers = {};
 
             //以 action 结尾的 url 认为是 ajax
+            //返回字符串或者buffer
+
+            //如何把ApiServer 和 staticServer 连接起来
             if (url.match('action')) {
-                body = JSON.stringify(apiServer(url));
-                headers = {
-                    'Content-Type': 'application/json'
-                }
-                let finalHeader = Object.assign(headers, {
-                    'X-powered-by': 'Node.js'
+                apiServer(url).then(val => {
+                    body = JSON.stringify(val);
+                    headers = {
+                        'Content-Type': 'application/json'
+                    }
+                    let finalHeader = Object.assign(headers, {
+                        'X-powered-by': 'Node.js'
+                    })
+                    res.writeHead(200, 'resolve ok', finalHeader)
+                    res.end(body);
                 })
-                res.writeHead(200, 'resolve ok', finalHeader)
-                res.end(body);
+
             } else {
                 staticServer(url).then((body) => {
                     let finalHeader = Object.assign(headers, {
