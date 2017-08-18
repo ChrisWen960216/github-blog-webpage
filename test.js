@@ -38,4 +38,16 @@ let anoTher = Promise.resolve({
     }
 })
 anoTher.then(val => console.log(val));
-console.log(anoTher);
+console.log('--------', anoTher);
+
+const assert = require('assert');
+
+const a = Promise.resolve(1);
+const p1 = a.then(val => {
+    console.log(val);
+    return val + 1;
+})
+const p2 = p1.then(val => {
+    console.log(val);
+    assert.equal(val, 2);
+})

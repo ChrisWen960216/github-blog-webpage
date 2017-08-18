@@ -16,9 +16,13 @@ setTimeout(() => {
             console.log('error', error);
         }
     })
+    //模拟post
     $.ajax({
         url: '/list.action',
-        method: 'get',
+        method: 'post',
+        data: {
+            'name': 'ChristianWen'
+        },
         //返回数组
         success: function(arr) {
             //console.log('data', data);

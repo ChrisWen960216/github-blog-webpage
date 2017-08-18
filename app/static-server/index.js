@@ -11,7 +11,7 @@ let staticFunction = (url) => {
         let _path = getPath(url);
         let body = fs.readFile(_path, (err, data) => {
             if (err) {
-                reject(err)
+                resolve(err)
             }
             resolve(data);
         })

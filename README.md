@@ -59,3 +59,5 @@
    - Promise.prototype.then
    - Promise.prototype.catch
 
+## 5. Stream
+
