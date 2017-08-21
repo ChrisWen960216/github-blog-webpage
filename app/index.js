@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const staticServer = require('./static-server');
 const apiServer = require('./api');
-
+const urlParser = require('./url-parser');
 class App {
     constructor() {}
 
@@ -17,7 +17,7 @@ class App {
         //初始化工作
         //...
         return (req, res) => {
-            let {url, method} = req;
+            let {method} = req;
 
             //返回的字符串
             //let body = '';
@@ -26,10 +26,17 @@ class App {
 
             //以 action 结尾的 url 认为是 ajax
             //返回字符串或者buffer
-            apiServer(req).then(val => {
+            req.context = {
+                body: '',
+                query: {},
+                method: 'get'
+            }
+            urlParser(req).then(() => {
+                return apiServer(req)
+            }).then(val => {
                 if (!val) {
                     //Promise
-                    return staticServer(url)
+                    return staticServer(req)
                 } else {
                     return val;
                 }

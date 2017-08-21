@@ -60,4 +60,6 @@
    - Promise.prototype.catch
 
 ## 5. Stream
+1. ### pasued Stream
+2. ### flow Stream
 

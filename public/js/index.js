@@ -20,9 +20,12 @@ setTimeout(() => {
     $.ajax({
         url: '/list.action',
         method: 'post',
-        data: {
-            'name': 'ChristianWen'
+        headers: {
+            "Content-Type": 'application/jason'
         },
+        data: JSON.stringify([
+            'name', 'ChristianWen'
+        ]),
         //返回数组
         success: function(arr) {
             //console.log('data', data);
