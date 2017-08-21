@@ -1,8 +1,9 @@
 
-module.exports = (url, method) => {
+module.exports = (req) => {
+    let {url, method} = req;
     let apiMap = {
-        '/list.action': ['百里守约', '露娜', '老夫子'],
-        '/user.action': ['ChrisWen', '男', '中国人']
+        '/list.action': ['西风多少恨，吹不散眉弯'],
+        '/user.action': ['而今空唱雨淋霖']
     }
     method = method.toLowerCase();
     if (method === 'get') {
@@ -10,6 +11,14 @@ module.exports = (url, method) => {
     } else {
         //处理post
 
+        return new Promise((resolve, reject) => {
+            let data = ''
+            req.on('data', (chunk) => {
+                data += chunk;
+            }).on('end', () => {
+                resolve(data)
+            });
+        })
     }
 
 

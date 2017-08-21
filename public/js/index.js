@@ -30,7 +30,6 @@ setTimeout(() => {
             let liStr = arr.map(function(ele) {
                 return '<li>' + ele + '</li>'
             }).join('');
-
             $('#shop-list').html(liStr);
         },
         error: function(error) {
