@@ -8,6 +8,7 @@ const path = require('path');
 const staticServer = require('./static-server');
 const apiServer = require('./api');
 const urlParser = require('./url-parser');
+
 class App {
     constructor() {}
     //高阶函数
@@ -49,17 +50,23 @@ class App {
             }).then(() => {
                 return staticServer(context)
             }).then(() => {
+
+
+                //let {body} = context.resCtx;
+                //writeHeader() 会覆盖 setHeader()
+
+                let {body, headers} = context.resCtx;
                 let base = {
                     'X-powered-by': 'Node.js'
                 }
-                let {body} = context.resCtx;
-                res.writeHead(200, 'resolve ok', base)
+                res.writeHead(200, 'resolve ok', Object.assign(base, headers));
                 res.end(body);
             })
         }
     }
 }
 module.exports = App
+
 /* var App = function(){}
 *  App.prototype.initServer = (res,res)=>{
     ...
