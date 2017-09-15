@@ -5,14 +5,21 @@
 
 //url: query + body + method
 //在 req.context 上挂载数据并且 resolve
+/**  context = {
+ *              req: req,
+ *              reqCtx: {},
+ *              res: res,
+ *              resCtx: {}
+ *          }
+ */
 
-module.exports = (req) => {
-    let {method, url, context} = req;
+module.exports = ctx => {
+    let {method, url} = ctx.req;
+    let {reqCtx} = ctx;
+
     method = method.toLowerCase();
     return Promise.resolve({
         then: (resolve, reject) => {
-            context.method = method;
-            context.query = {};
             if (method === 'post') {
                 let data = '';
                 //paused => flow
@@ -20,7 +27,8 @@ module.exports = (req) => {
                     data += chunk;
                 }).on('end', () => {
                     //resolve(JSON.parse(data)) //body
-                    context.body = JSON.parse(data);
+                    reqCtx.body = JSON.parse(data);
+                    //通知下一个流程
                     resolve();
                 });
             } else {

@@ -1,5 +1,6 @@
 /* Created By ChirsWen
  * 17/8/11
+ * Main Entry
  */
 const http = require('http');
 const PORT = 7000;

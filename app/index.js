@@ -1,5 +1,5 @@
 /* 核心逻辑入口
- *
+ * CenterLogical Entry
  */
 
 //fs 文件I/O
@@ -10,7 +10,6 @@ const apiServer = require('./api');
 const urlParser = require('./url-parser');
 class App {
     constructor() {}
-
     //高阶函数
     //process.cwd() 路径相对于本项目 node 的启动环境
     initServer() {
@@ -30,30 +29,39 @@ class App {
                 body: '',
                 query: {},
                 method: 'get'
-            }
-            urlParser(req).then(() => {
-                return apiServer(req)
-            }).then(val => {
-                if (!val) {
-                    //Promise
-                    return staticServer(req)
-                } else {
-                    return val;
+            };
+            //抽象一个模型 用来统一挂载模型
+            let context = {
+                req: req,
+                reqCtx: {
+                    body: '', //post请求的数据
+                    query: {} //处理客户端 get 请求
+                },
+                res: res,
+                resCtx: {
+                    headers: {}, //response 返回报文
+                    body: '' //返回给前端内容区
                 }
-            }).then(val => {
+            };
+            //Promise + request + response
+            urlParser(context).then(() => {
+                return apiServer(context)
+            }).then(() => {
+                return staticServer(context)
+            }).then(() => {
                 let base = {
                     'X-powered-by': 'Node.js'
                 }
-                let body = '';
-                if (val instanceof Buffer) {
-                    body = val;
-                } else {
-                    body = JSON.stringify(val);
-                    let finalHeader = Object.assign(base, {
-                        'Content-Type': 'application/json'
-                    });
-                    res.writeHead(200, 'resolve ok', finalHeader)
-                }
+                let {body} = context.resCtx;
+                // if (val instanceof Buffer) {
+                //     body = val;
+                // } else {
+                //     body = JSON.stringify(val);
+                //     let finalHeader = Object.assign(base, {
+                //         'Content-Type': 'application/json'
+                //     });
+                //     res.writeHead(200, 'resolve ok', finalHeader)
+                // }
                 res.end(body);
             })
         }
@@ -65,4 +73,3 @@ module.exports = App
     ...
 }
 */
-
