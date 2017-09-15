@@ -53,15 +53,7 @@ class App {
                     'X-powered-by': 'Node.js'
                 }
                 let {body} = context.resCtx;
-                // if (val instanceof Buffer) {
-                //     body = val;
-                // } else {
-                //     body = JSON.stringify(val);
-                //     let finalHeader = Object.assign(base, {
-                //         'Content-Type': 'application/json'
-                //     });
-                //     res.writeHead(200, 'resolve ok', finalHeader)
-                // }
+                res.writeHead(200, 'resolve ok', base)
                 res.end(body);
             })
         }
