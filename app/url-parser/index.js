@@ -20,13 +20,13 @@ module.exports = ctx => {
     return Promise.resolve({
         then: (resolve, reject) => {
             if (method === 'post') {
-                let data = '';
+                let data = [];
                 //paused => flow
                 ctx.req.on('data', (chunk) => {
-                    data += chunk;
+                    data.push(chunk);
                 }).on('end', () => {
-                    //resolve(JSON.parse(data)) //body
-                    reqCtx.body = JSON.parse(data);
+                    let endData = Buffer.concat(data).toString();
+                    reqCtx.body = JSON.parse(endData);
                     //通知下一个流程
                     resolve();
                 });
