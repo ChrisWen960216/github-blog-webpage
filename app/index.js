@@ -3,8 +3,8 @@
  */
 
 //fs 文件I/O
-const fs = require('fs');
-const path = require('path');
+// const fs = require('fs');
+// const path = require('path');
 
 class App {
     constructor() {
@@ -35,7 +35,7 @@ class App {
         //初始化工作
         //...
         return (req, res) => {
-            let {url, method} = req;
+            //let {url, method} = req;
             //返回的字符串
             //let body = '';
             //请求头部
