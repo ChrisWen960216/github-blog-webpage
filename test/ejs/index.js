@@ -1,4 +1,4 @@
-const path = require('path');
+//const path = require('path');
 const ejs = require('ejs');
 
 const html = `Hello<%- World %>`;
@@ -11,7 +11,7 @@ const html = `Hello<%- World %>`;
 const f1 = ejs.compile(html);
 console.log(f1);
 
-/* <% %> 逻辑运算
+/* <%  %> 逻辑运算
  * <%- %> unescape
  * <%= %> escape
  */
