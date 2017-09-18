@@ -22,6 +22,7 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
+    "ejs": "^2.5.7",
     "jquery": "^3.2.1"
   }
 }
