@@ -6,6 +6,15 @@ const http = require('http');
 const PORT = 7000;
 const App = require('./app'); //find index.js ()=>./app/index.js
 const Server = new App();
+
+//中间件
+const staticServer = require('./app/static-server');
+const apiServer = require('./app/api');
+const urlParser = require('./app/url-parser');
+Server.use(staticServer);
+Server.use(apiServer);
+Server.use(urlParser);
+
 http.createServer(Server.initServer()).listen(PORT, () => {
     console.log(`Listening server on port ${PORT}`)
 });

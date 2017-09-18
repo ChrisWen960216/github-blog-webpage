@@ -5,12 +5,31 @@
 //fs 文件I/O
 const fs = require('fs');
 const path = require('path');
-const staticServer = require('./static-server');
-const apiServer = require('./api');
-const urlParser = require('./url-parser');
+
 
 class App {
-    constructor() {}
+    constructor() {
+        this.middlewareArr = [];
+        //设计空的 promise
+        this.middlewareChain = Promise.resolve();
+    }
+
+    use(middleware) {
+        this.middlewareArr.push(middleware);
+    }
+
+    //创建Promise 链条
+    composeMiddleware(context) {
+        let {middlewareArr} = this;
+        //根据中间件数组 创建Promise 链条
+        for (let middleware of middlewareArr) {
+            this.middlewareChain = this.middlewareChain.then(() => {
+                return middleware(context);
+            })
+        }
+        return this.middlewareChain;
+    }
+
     //高阶函数
     //process.cwd() 路径相对于本项目 node 的启动环境
     initServer() {
@@ -45,13 +64,7 @@ class App {
                 }
             };
             //Promise + request + response
-            urlParser(context).then(() => {
-                return apiServer(context)
-            }).then(() => {
-                return staticServer(context)
-            }).then(() => {
-
-
+            this.composeMiddleware(context).then(() => {
                 //let {body} = context.resCtx;
                 //writeHeader() 会覆盖 setHeader()
 
@@ -60,6 +73,7 @@ class App {
                     'X-powered-by': 'Node.js'
                 }
                 res.writeHead(200, 'resolve ok', Object.assign(base, headers));
+                //console.log(context)
                 res.end(body);
             })
         }
