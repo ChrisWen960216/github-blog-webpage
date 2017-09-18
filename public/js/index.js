@@ -21,7 +21,7 @@ setTimeout(() => {
         url: '/list.action',
         method: 'post',
         headers: {
-            "Content-Type": 'application/jason'
+            "Content-Type": 'application/json'
         },
         data: JSON.stringify([
             'name', 'ChristianWen'

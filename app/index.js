@@ -6,7 +6,6 @@
 const fs = require('fs');
 const path = require('path');
 
-
 class App {
     constructor() {
         this.middlewareArr = [];
@@ -36,20 +35,12 @@ class App {
         //初始化工作
         //...
         return (req, res) => {
-            let {method} = req;
-
+            let {url, method} = req;
             //返回的字符串
             //let body = '';
             //请求头部
             //let headers = {};
 
-            //以 action 结尾的 url 认为是 ajax
-            //返回字符串或者buffer
-            req.context = {
-                body: '',
-                query: {},
-                method: 'get'
-            };
             //抽象一个模型 用来统一挂载模型
             let context = {
                 req: req,
@@ -67,13 +58,11 @@ class App {
             this.composeMiddleware(context).then(() => {
                 //let {body} = context.resCtx;
                 //writeHeader() 会覆盖 setHeader()
-
                 let {body, headers} = context.resCtx;
                 let base = {
                     'X-powered-by': 'Node.js'
                 }
                 res.writeHead(200, 'resolve ok', Object.assign(base, headers));
-                //console.log(context)
                 res.end(body);
             })
         }
