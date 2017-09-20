@@ -24,8 +24,15 @@ module.exports = ctx => {
                 const viewPath = path.resolve(__dirname, 'ejs');
                 let ejsName = urlrewriteMap[url];
                 if (ejsName) {
-                    let htmlPath = path.resolve(viewPath, ejsName + '.ejs');
-                    let html = fs.readFileSync(htmlPath, 'utf8');
+                    let layoutPath = path.resolve(viewPath, 'layout.ejs');
+                    let layoutHtml = fs.readFileSync(layoutPath, 'utf8');
+                    let render = ejs.compile(layoutHtml, {
+                        compileDebug: true,
+                        filename: layoutPath
+                    });
+                    let html = render({
+                        templateName: ejsName
+                    });
                     resCtx.headers = Object.assign(resCtx.headers, {
                         'Content-Type': 'text/html'
                     });
@@ -37,21 +44,20 @@ module.exports = ctx => {
                         'Location': '/'
                     });
                     resCtx.statusCode = 302;
+                    resCtx.statusMessage = 'Redirect';
                     resCtx.body = '';
                     resolve();
                 }
             }
-        //let viewPath = path.resolve(process.cwd(), 'public');
-        // if (urlMap[url]) {
-        //     let {viewName} = urlMap[url];
-        //     let htmlPath = path.resolve(viewPath, viewName);
-        //     resCtx.headers = Object.assign(resCtx.headers, {
-        //         'Content-Type': mime.getType(htmlPath)
-        //     });
-        //     let tempStr = fs.readFileSync(htmlPath, 'utf8');
-        //     let render = ejs.compile(tempStr, {
-        //         compileDebug: true
-        //     });
+            //let viewPath = path.resolve(process.cwd(), 'public');
+            // if (urlMap[url]) {
+            //     let {viewName} = urlMap[url];
+            //     let htmlPath = path.resolve(viewPath, viewName);
+            //     resCtx.headers = Object.assign(resCtx.headers, {
+            //         'Content-Type': mime.getType(htmlPath)
+            //     });
+            //     let tempStr = fs.readFileSync(htmlPath, 'utf8');
+
         //     resCtx.body = render();
         //     resolve();
         // } else {
