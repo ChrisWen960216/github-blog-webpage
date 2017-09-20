@@ -50,6 +50,8 @@ class App {
                 },
                 res: res,
                 resCtx: {
+                    statusCode: 200, //状态码
+                    statusMessage: 'Resolve OK', //状态信息
                     headers: {}, //response 返回报文
                     body: '' //返回给前端内容区
                 }
@@ -58,11 +60,11 @@ class App {
             this.composeMiddleware(context).then(() => {
                 //let {body} = context.resCtx;
                 //writeHeader() 会覆盖 setHeader()
-                let {body, headers} = context.resCtx;
+                let {body, headers, statusCode, statusMessage} = context.resCtx;
                 let base = {
                     'X-powered-by': 'Node.js'
                 }
-                res.writeHead(200, 'resolve ok', Object.assign(base, headers));
+                res.writeHead(statusCode, statusMessage, Object.assign(base, headers));
                 res.end(body);
             })
         }

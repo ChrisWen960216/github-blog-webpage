@@ -18,20 +18,29 @@ module.exports = ctx => {
     let {url} = req;
     return Promise.resolve({
         then: (resolve, reject) => {
-            const viewPath = path.resolve(__dirname, 'ejs');
-            let ejsName = urlrewriteMap[url];
-            if (ejsName) {
-                let htmlPath = path.resolve(viewPath, ejsName + '.ejs');
-                let html = fs.readFileSync(htmlPath, 'utf8');
-                resCtx.headers = Object.assign(resCtx.headers, {
-                    'Content-Type': 'text/html'
-                });
-                resCtx.body = html;
+            if (url.match('action') || url.match(/\./)) {
                 resolve();
             } else {
-                resolve();
+                const viewPath = path.resolve(__dirname, 'ejs');
+                let ejsName = urlrewriteMap[url];
+                if (ejsName) {
+                    let htmlPath = path.resolve(viewPath, ejsName + '.ejs');
+                    let html = fs.readFileSync(htmlPath, 'utf8');
+                    resCtx.headers = Object.assign(resCtx.headers, {
+                        'Content-Type': 'text/html'
+                    });
+                    resCtx.body = html;
+                    resolve();
+                } else {
+                    //重定向
+                    resCtx.headers = Object.assign(resCtx.headers, {
+                        'Location': '/'
+                    });
+                    resCtx.statusCode = 302;
+                    resCtx.body = '';
+                    resolve();
+                }
             }
-
         //let viewPath = path.resolve(process.cwd(), 'public');
         // if (urlMap[url]) {
         //     let {viewName} = urlMap[url];
