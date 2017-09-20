@@ -21,32 +21,33 @@ module.exports = ctx => {
             const viewPath = path.resolve(__dirname, 'ejs');
             let ejsName = urlrewriteMap[url];
             if (ejsName) {
-                let htmlPath = path.resolve(viewPath, viewName + '.ejs');
-            }
-            let urlMap = {
-                '/': {
-                    viewName: 'index.html'
-                },
-                '/about': {
-                    viewName: 'about.html'
-                }
-            };
-            //let viewPath = path.resolve(process.cwd(), 'public');
-            if (urlMap[url]) {
-                let {viewName} = urlMap[url];
-                let htmlPath = path.resolve(viewPath, viewName);
+                let htmlPath = path.resolve(viewPath, ejsName + '.ejs');
+                let html = fs.readFileSync(htmlPath, 'utf8');
                 resCtx.headers = Object.assign(resCtx.headers, {
-                    'Content-Type': mime.getType(htmlPath)
+                    'Content-Type': 'text/html'
                 });
-                let tempStr = fs.readFileSync(htmlPath, 'utf8');
-                let render = ejs.compile(tempStr, {
-                    compileDebug: true
-                });
-                resCtx.body = render();
+                resCtx.body = html;
                 resolve();
             } else {
                 resolve();
             }
+
+        //let viewPath = path.resolve(process.cwd(), 'public');
+        // if (urlMap[url]) {
+        //     let {viewName} = urlMap[url];
+        //     let htmlPath = path.resolve(viewPath, viewName);
+        //     resCtx.headers = Object.assign(resCtx.headers, {
+        //         'Content-Type': mime.getType(htmlPath)
+        //     });
+        //     let tempStr = fs.readFileSync(htmlPath, 'utf8');
+        //     let render = ejs.compile(tempStr, {
+        //         compileDebug: true
+        //     });
+        //     resCtx.body = render();
+        //     resolve();
+        // } else {
+        //     resolve();
+        // }
         }
     })
 }
