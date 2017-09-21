@@ -1,3 +1,4 @@
+// webpack 插件配置
 const path = require('path'),
     webpack = require("webpack"),
     CopyWebpackPlugin = require('copy-webpack-plugin'),
@@ -10,7 +11,7 @@ exports.plugins = [
     }),
     new WebpackNotifierPlugin({
         title: 'Webpack 编译成功',
-        contentImage: path.resolve(process.cwd(), '/img/favicon.ico'),
+        contentImage: path.resolve(process.cwd(), './img/avatar.jpeg'),
         alwaysNotify: true
     }),
     new ExtractTextPlugin({

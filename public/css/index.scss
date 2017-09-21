@@ -1,0 +1,30 @@
+@import './highlight/dark.scss';
+body {
+    background: linear-gradient(45deg, gray, coral)
+}
+
+header {
+    border-bottom: 2px double white;
+    ul {
+        float: left;
+        li {
+            font-size: 20px;
+            float: left;
+            margin: 0 10px;
+        }
+    }
+    a {
+        text-decoration: none;
+        outline-style: none;
+    }
+    a:hover {
+        color: yellow;
+        transition: .5s;
+        text-decoration: none;
+        outline-style: none;
+    }
+    img {
+        width: 100px;
+        height: 100px;
+    }
+}
