@@ -45,6 +45,7 @@ class App {
             let context = {
                 req: req,
                 reqCtx: {
+                    hasUser: false,
                     body: '', //post请求的数据
                     query: {} //处理客户端 get 请求
                 },
