@@ -1,4 +1,7 @@
 @import './highlight/dark.scss';
+$s-screen: 480px; //移动端
+$m-screen: 700px; //ipad
+$b-screen: 800px; //PC
 body {
     min-width: 1000px;
     background-color: #eee;
