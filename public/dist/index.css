@@ -70,26 +70,42 @@
   font-weight: bold; }
 
 body {
-  background: linear-gradient(45deg, gray, coral); }
+  min-width: 1000px;
+  background-color: #eee; }
+
+.clearfix {
+  content: '';
+  display: block;
+  clear: both; }
 
 header {
-  border-bottom: 2px double white; }
-  header ul {
-    float: left; }
-    header ul li {
-      font-size: 20px;
-      float: left;
-      margin: 0 10px; }
+  border-bottom: 2px double #2da2dd; }
+  header ul li {
+    font-size: 20px;
+    line-height: 100px;
+    float: left;
+    margin: 0 10px; }
   header a {
     text-decoration: none;
     outline-style: none; }
   header a:hover {
-    color: yellow;
-    transition: .5s;
+    color: #2da2dd;
+    transition: .2s;
     text-decoration: none;
     outline-style: none; }
   header img {
     width: 100px;
     height: 100px; }
+
+#main-content {
+  min-height: 800px;
+  border-bottom: 1px solid green; }
+
+footer {
+  margin-top: 20px; }
+  footer ul {
+    text-align: center; }
+    footer ul li {
+      cursor: pointer; }
 
 /*# sourceMappingURL=index.css.map*/
