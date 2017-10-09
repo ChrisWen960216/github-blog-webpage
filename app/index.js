@@ -2,16 +2,16 @@
  * CenterLogical Entry
  */
 
-//fs 文件I/O
+// fs 文件I/O
 // const fs = require('fs');
 // const path = require('path');
 
 class App {
-    constructor() {
-        this.middlewareArr = [];
-        //设计空的 promise
-        this.middlewareChain = Promise.resolve();
-    }
+  constructor () {
+    this.middlewareArr = []
+    // 设计空的 promise
+    this.middlewareChain = Promise.resolve()
+  }
 
     use(middleware) {
         this.middlewareArr.push(middleware);
