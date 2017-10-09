@@ -25,9 +25,10 @@ const insertDocutments = (db, callback) => {
   });
 };
 
+// Find all documents
 const findDocuments = (db, callback) => {
   const collection = db.collection('documents');
-  collection.find({}).toArray((err, docs) => {
+  collection.find({'a': 3}).toArray((err, docs) => {
     assert.equal(err, null);
     console.log('Found the follwing records');
     console.log(docs);
