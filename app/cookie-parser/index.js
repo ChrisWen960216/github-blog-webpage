@@ -4,7 +4,7 @@
  */
 const cookieParser = require('cookie');
 module.exports = ctx => {
-  const {url} = ctx.req;
+  const {pathname} = ctx.reqCtx;
   const {cookie} = ctx.req.headers;
   const {resCtx, res} = ctx;
   const whiteNameList = ['/name_ChrisWen'];
@@ -18,10 +18,10 @@ module.exports = ctx => {
         resCtx.hasUser = true;
         res.setHeader('Set-Cookie', cookieStr(3600));
       }
-      if (whiteNameList.indexOf(url) > -1) {
+      if (whiteNameList.indexOf(pathname) > -1) {
         res.setHeader('Set-Cookie', cookieStr(3600));
       }
-      if (url === '/logout') {
+      if (pathname === '/logout') {
         res.setHeader('Set-Cookie', cookieStr(0));
       }
       resolve();

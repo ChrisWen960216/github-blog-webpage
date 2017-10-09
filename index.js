@@ -3,7 +3,7 @@
  * Main Entry
  */
 const http = require('http')
-const PORT = 7000
+const PORT = 7000;
 const App = require('./app') // find index.js ()=>./app/index.js
 const Server = new App()
 

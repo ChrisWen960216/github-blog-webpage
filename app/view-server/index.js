@@ -12,15 +12,15 @@ const path = require('path');
 const urlrewriteMap = require('./urlrewrite');
 
 module.exports = ctx => {
-  const {req, resCtx} = ctx;
-  const {url} = req;
+  const {reqCtx, resCtx} = ctx;
+  const {pathname} = reqCtx;
   return Promise.resolve({
     then: (resolve, reject) => {
-      if (url.match('action') || url.match(/\./)) {
+      if (pathname.match('action') || pathname.match(/\./)) {
         resolve();
       } else {
         const viewPath = path.resolve(__dirname, 'ejs');
-        const ejsName = urlrewriteMap[url];
+        const ejsName = urlrewriteMap[pathname];
         if (ejsName) {
           const layoutPath = path.resolve(viewPath, 'layout.ejs');
           const layoutHtml = fs.readFileSync(layoutPath, 'utf8');

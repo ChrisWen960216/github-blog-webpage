@@ -1,6 +1,6 @@
 
 module.exports = ctx => {
-  const {url} = ctx.req;
+  const {pathname} = ctx.reqCtx;
   let {method} = ctx.req;
   const {resCtx, reqCtx} = ctx;
 
@@ -12,9 +12,9 @@ module.exports = ctx => {
   return Promise.resolve({
     then: (resolve, reject) => {
       // 理论上只处理 action
-      if (url.match('action')) {
+      if (pathname.match('action')) {
         if (method === 'get') {
-          resCtx.body = JSON.stringify(apiMap[url]);
+          resCtx.body = JSON.stringify(apiMap[pathname]);
         } else {
         // 处理post
           const {body} = reqCtx;
