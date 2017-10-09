@@ -5,13 +5,7 @@
 
 //url: query + body + method
 //在 req.context 上挂载数据并且 resolve
-/**  context = {
- *              req: req,
- *              reqCtx: {},
- *              res: res,
- *              resCtx: {}
- *          }
- */
+
 
 module.exports = ctx => {
     let {method, url} = ctx.req;
