@@ -6,7 +6,11 @@ const url = 'mongodb://localhost:27017/chriswen';
 MongoClient.connect(url, (err, db) => {
     assert.equal(null, err);
     console.log('Successfully Connected to Server');
-    db.close();
+    insertDocutments(db, () => {
+        findDocuments(db, () => {
+            db.close();
+        })
+    });
 });
 
 //Insert Document
@@ -26,5 +30,15 @@ const insertDocutments = (db, callback) => {
         assert.equal(3, result.ops.length);
         console.log('Inserted 3 documents into the collection');
         callback(result);
+    });
+};
+
+const findDocuments = (db, callback) => {
+    const collection = db.collection('documents');
+    collection.find({}).toArray((err, docs) => {
+        assert.equal(err, null);
+        console.log('Found the follwing records');
+        console.log(docs);
+        callback(docs);
     })
 }
