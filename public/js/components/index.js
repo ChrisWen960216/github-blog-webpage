@@ -1,5 +1,2 @@
-
-
-
-export DetailPanel from './detail/'
-export BlogWritePanel from './write/'
+export DetailPanel from './detail/';
+export BlogWritePanel from './write/';
