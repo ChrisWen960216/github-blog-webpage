@@ -2,10 +2,11 @@
  * 17/8/11
  * Main Entry
  */
-const http = require('http')
+const http = require('http');
 const PORT = 7000;
-const App = require('./app') // find index.js ()=>./app/index.js
-const Server = new App()
+const App = require('./app'); // find index.js ()=>./app/index.js
+const Server = new App();
+const mongoose = require('mongoose');
 
 // 中间件
 const staticServer = require('./app/static-server');
@@ -20,4 +21,6 @@ Server.use(apiServer);
 Server.use(staticServer);
 Server.use(viewServer);
 
-http.createServer(Server.initServer()).listen(PORT, () => { console.log(`Listening server on port ${PORT}`) })
+mongoose.connect('mongodb://localhost/blogDB');
+mongoose.connection.on('error', () => { console.log('Error happend for DB'); }).once('open', () => { console.log('We are connected!'); });
+http.createServer(Server.initServer()).listen(PORT, () => { console.log(`Listening server on port ${PORT}`); });

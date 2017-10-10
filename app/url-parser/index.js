@@ -10,8 +10,9 @@ module.exports = ctx => {
     let {method} = ctx.req;
     const {url} = ctx.req;
     const {reqCtx} = ctx;
-    Object.assign(reqCtx, Url.parse(url, true));
     method = method.toLowerCase();
+    Object.assign(reqCtx, Url.parse(url, true), { method });
+
     return Promise.resolve({
         then: (resolve, reject) => {
             if (method === 'post') {
