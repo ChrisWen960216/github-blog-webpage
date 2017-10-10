@@ -1,5 +1,5 @@
 /* Created By ChirsWen
- * 17/8/11
+ * 17/10/10
  * Main Entry
  */
 const http = require('http');
@@ -21,6 +21,8 @@ Server.use(apiServer);
 Server.use(staticServer);
 Server.use(viewServer);
 
+// Use native promise
 mongoose.connect('mongodb://localhost/blogDB');
+mongoose.Promise = global.Promise;
 mongoose.connection.on('error', () => { console.log('Error happend for DB'); }).once('open', () => { console.log('We are connected!'); });
 http.createServer(Server.initServer()).listen(PORT, () => { console.log(`Listening server on port ${PORT}`); });

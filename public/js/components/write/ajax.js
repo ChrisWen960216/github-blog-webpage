@@ -6,6 +6,14 @@ const categoryListApi = (category) => {
         return res['data'];
     });
 };
+
+const categoryApi = (category) => {
+    const api = '/category.action';
+    return axios.post(api, category).then((res) => {
+        return res['data'];
+    });
+};
+
 const submitBlogApi = data => {
     const api = '/blog.action';
     return axios.post(api, data)
@@ -14,10 +22,10 @@ const submitBlogApi = data => {
                 return {
                     error: true,
                     msg: res['data']
-                }
+                };
             } else {
                 return res['data']
             }
         });
 };
-export { submitBlogApi, categoryListApi };
+export { submitBlogApi, categoryListApi, categoryApi };
