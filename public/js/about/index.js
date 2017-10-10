@@ -1,7 +1,7 @@
 /*
  * 博客详情页面
- * @Author slashhuang
- * 17/4/25
+ * Created By ChrisWen
+ * 17/10/10
  */
 import { blogListApi } from '../manage/ajax/'
 import React,{ Component }  from 'react'
