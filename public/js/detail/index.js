@@ -3,45 +3,37 @@
  * @Author slashhuang
  * 17/4/25
  */
-require('./scss/index.scss')
-import { blogDetailApi } from '../manage/ajax/'
-import React,{ Component }  from 'react'
-import { render } from 'react-dom'
-import { Spin } from 'antd'
-import querystring from 'querystring'
-import { DetailPanel } from '../components/'
-class DetailIndex extends Component{
-    state={
-        detail:null
-    }
-    componentDidMount(){
-        let query = querystring.parse(location.search.substr(1))
-        blogDetailApi(query).then(detail=>{
-            this.setState({detail})
-        })
-    }
-    render(){
-        let {detail} = this.state
-        return (
-            <div className='container clearfix'>
-               {
-                do{
-                    if(detail){
-                        <DetailPanel detail={detail}/>
-                    }else{
-                        <Spin size='large' tip="加载中..." className='spinner'/>
-                    }
-                }
-               }
-                <div className="widgets">
-                </div>
-            </div>
-        )
-    }
+
+import { blogDetailApi } from '../manage/ajax/';
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import { Spin } from 'antd';
+import querystring from 'querystring';
+import { DetailPanel } from '../components/';
+
+require('./scss/index.scss');
+
+class DetailIndex extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      detail: null
+    };
+  }
+  mponentDidMount () {
+    const query = querystring.parse(location.search.substr(1))
+    blogDetailApi(query).then(detail => {
+      this.setState({detail});
+    });
+  }
+  render () {
+    // const { detail } = this.state;
+    return (
+      <div className='container clearfix'>
+        <div className="widgets">
+        </div>
+      </div>
+    );
+  }
 }
-render(<DetailIndex />,document.getElementById('mod-detail'))
-
-
-
-
-
+render(<DetailIndex />, document.getElementById('mod-detail'))
