@@ -3,6 +3,7 @@
  * 创建Model
  * 17/10/10
  */
+
 const mongoose = require('mongoose');
 const {blogSchema, categorySchema} = require('./schema');
 
@@ -15,18 +16,20 @@ const $saveBlog = blog => {
             return {
                 status: 1,
                 data: _blog
-            }
-        })
+            };
+        });
 };
+
 // upsert --- 如果没有，就新增加一个;
 // new --- 返回更新后的值;
 const $saveCategory = category => {
-    return CategoryModel.findOneAndUpdate({category: category.category}, category, {upsert: true, new: true}).then(_category => {
-        return {
-            status: 1,
-            data: _category.category
-        };
-    });
+    return CategoryModel.findOneAndUpdate({category: category.category}, category, {upsert: true, new: true})
+        .then(_category => {
+            return {
+                status: 1,
+                data: _category
+            };
+        });
 };
 
 module.exports = {$saveBlog, $saveCategory};

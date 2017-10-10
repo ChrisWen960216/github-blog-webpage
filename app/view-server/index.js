@@ -8,7 +8,6 @@
 const ejs = require('ejs');
 const fs = require('fs');
 const path = require('path');
-// const mime = require('mime');
 const urlrewriteMap = require('./urlrewrite');
 
 module.exports = ctx => {
@@ -29,7 +28,7 @@ module.exports = ctx => {
                         filename: layoutPath
                     });
                     const html = render({
-                        templateName: ejsName,
+                        viewName: ejsName,
                         hasUser: resCtx.hasUser
                     });
                     resCtx.headers = Object.assign(resCtx.headers, {
