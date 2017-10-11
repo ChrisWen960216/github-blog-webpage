@@ -10136,7 +10136,7 @@ _axios2.default.interceptors.response.use(function (response) {
 }, function (error) {
     // Do something with response error
     alert('error ' + error);
-}); // or 'antd/dist/antd.less'
+});
 
 /***/ }),
 

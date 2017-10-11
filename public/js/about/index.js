@@ -10,40 +10,41 @@ import { Spin } from 'antd';
 import { DetailPanel } from '../components/';
 
 class ListPanel extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      blogList: []
-    };
-  }
-  componentDidMount () {
-    blogListApi({
-      'category.name': 'about'
-    }).then(blogList => {
-      this.setState({blogList});
-    });
-  }
+    constructor (props) {
+        super(props);
+        this.state = {
+            blogList: []
+        };
+    }
 
-  renderBlog (detail) {
-    return <DetailPanel detail={detail}/>
-  }
+    componentDidMount () {
+        blogListApi({
+            'category.name': 'about'
+        }).then(blogList => {
+            this.setState({blogList});
+        });
+    }
 
-  renderList () {
-    const { blogList } = this.state;
-    return blogList.map(blog => {
-      return this.renderBlog(blog);
-    });
-  }
+    renderBlog (detail) {
+        return <DetailPanel detail={detail}/>
+    }
 
-  render () {
-    const { blogList } = this.state;
-    return (
-      <div className='container clearfix'>
-        <div className="widgets">
-        </div>
-      </div>
-    );
-  }
+    renderList () {
+        const { blogList } = this.state;
+        return blogList.map(blog => {
+            return this.renderBlog(blog);
+        });
+    }
+
+    render () {
+        const { blogList } = this.state;
+        return (
+            <div className='container clearfix'>
+                <div className="widgets">
+                </div>
+            </div>
+        );
+    }
 }
 
 render(<ListPanel />, document.getElementById('mod-about'));

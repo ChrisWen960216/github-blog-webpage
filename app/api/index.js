@@ -4,10 +4,6 @@ require('./ajax');
 module.exports = ctx => {
     const {pathname} = ctx.reqCtx;
     const {resCtx, reqCtx, res} = ctx;
-
-    let {method} = ctx.req;
-    method = method.toLowerCase();
-
     return Promise.resolve({
         then: (resolve, reject) => {
             // 理论上只处理 action
