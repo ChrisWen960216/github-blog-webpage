@@ -1,6 +1,6 @@
-//网络请求
+// 网络请求
 import axios from 'axios';
-//url形式 localhost:7000/blog?id=111
+// url形式 localhost:7000/blog?id=111
 const blogDetailApi = (query)=>{
     let api = '/blogDetail.action'
     return axios.get(api,{params:query}).then((res)=>{
@@ -41,11 +41,4 @@ const deleteBlogApi = (id)=>{
                     }
                 })
 }
-export {
-	submitBlogApi,
-    blogDetailApi,
-    blogListApi,
-    deleteBlogApi
-}
-
-
+export { submitBlogApi, blogDetailApi, blogListApi, deleteBlogApi };

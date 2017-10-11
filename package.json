@@ -18,22 +18,22 @@
   },
   "homepage": "https://github.com/ChrisWen960216/node-blog#readme",
   "devDependencies": {
-    
     "lodash": "^4.17.4",
     "nodemon": "^1.11.0"
   },
   "dependencies": {
     "cookie": "^0.3.1",
     "ejs": "^2.5.7",
-    "jquery": "^3.2.1",
-    "mime": "^2.0.1",
-    "mongodb": "^2.2.31",
-    "mongoose": "^4.12.1",
-    "webpack": "^3.6.0",
     "eslint-config-standard": "10.2.1",
     "eslint-plugin-import": "2.7.0",
     "eslint-plugin-node": "5.2.0",
     "eslint-plugin-promise": "3.5.0",
-    "eslint-plugin-standard": "3.0.1"
+    "eslint-plugin-standard": "3.0.1",
+    "jquery": "^3.2.1",
+    "mime": "^2.0.1",
+    "mongodb": "^2.2.31",
+    "mongoose": "^4.12.1",
+    "ts-loader": "^2.3.7",
+    "webpack": "^3.6.0"
   }
 }

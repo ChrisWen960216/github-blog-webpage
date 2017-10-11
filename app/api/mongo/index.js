@@ -11,7 +11,8 @@ const BlogModel = mongoose.model('Blog', blogSchema);
 const CategoryModel = mongoose.model('Category', categorySchema);
 
 const $saveBlog = blog => {
-    return BlogModel.findOneAndUpdate({title: blog.title}, blog, {upsert: true, new: true})
+    const condition = {title: blog.title};
+    return BlogModel.findOneAndUpdate(condition, blog, {upsert: true, new: true})
         .then(_blog => {
             return {
                 status: 1,
@@ -37,8 +38,27 @@ const $getCategory = query => {
         return {
             status: 1,
             data: _categoryList
+        };
+    });
+};
+
+const $getBlogDetail = query => {
+    const {id} = query;
+    return BlogModel.findOne({_id: id}).exec().then(_blog => {
+        return {
+            status: 1,
+            data: _blog
+        };
+    });
+};
+
+const $getBlogList = query => {
+    return BlogModel.find(query).exec().then(_blog => {
+        return {
+            status: 1,
+            data: _blog
         }
     })
 }
 
-module.exports = {$saveBlog, $saveCategory, $getCategory};
+module.exports = {$saveBlog, $saveCategory, $getCategory, $getBlogDetail, $getBlogList};

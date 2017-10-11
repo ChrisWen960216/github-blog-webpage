@@ -7,7 +7,8 @@ const urlrewriteMap = {
     '/': 'index',
     '/list': 'list',
     '/manage': 'manage',
-    '/about': 'about'
+    '/about': 'about',
+    '/blog': 'detail'
 };
 
 module.exports = urlrewriteMap;

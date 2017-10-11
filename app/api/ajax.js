@@ -3,7 +3,7 @@
  * Created By ChrisWen
  */
 const Router = require('./router');
-const {$saveBlog, $saveCategory, $getCategory} = require('./mongo');
+const {$saveBlog, $saveCategory, $getCategory, $getBlogDetail, $getBlogList} = require('./mongo');
 // 分类列表
 Router.post('/category.action', ctx => {
     const category = ctx.reqCtx.body;
@@ -18,4 +18,14 @@ Router.post('/blog.action', ctx => {
     const blog = ctx.reqCtx.body;
     return $saveBlog(blog);
 });
+
+Router.get('/blogDetail.action', ctx => {
+    const {query} = ctx.reqCtx;
+    return $getBlogDetail(query);
+})
+
+Router.get('/blogList.action', ctx => {
+    const {query} = ctx.reqCtx;
+    return $getBlogList(query);
+})
 module.exports = Router;

@@ -35,6 +35,11 @@ exports.loaders = [
     use: 'babel-loader'
   },
   {
+     test: /\.tsx$/,
+    exclude: /node_modules/,
+    use: 'ts-loader'
+  },
+  {
     test: /\.css$/,
     use: ExtractTextPlugin.extract({
       fallback: 'style-loader',

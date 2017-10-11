@@ -16,6 +16,6 @@ const blogSchema = new Schema({
     rawContent: String, // MARKDOWN
     category: categorySchema, // 分类
     date: { type: String, default: () => { return new Date().toLocaleString(); } }
-});
+}, {_id: false, strict: false});
 
 module.exports = {blogSchema, categorySchema}
