@@ -6,7 +6,7 @@
 const urlrewriteMap = {
     '/': 'index',
     '/list': 'list',
-    '/write': 'write',
+    '/manage': 'manage',
     '/about': 'about'
 };
 

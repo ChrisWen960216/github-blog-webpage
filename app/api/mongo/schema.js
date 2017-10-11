@@ -5,15 +5,17 @@
  */
 const {Schema} = require('mongoose');
 
+const categorySchema = new Schema({
+    name: String
+});
+
 // 创建博客数据存储 Schema
-exports.blogSchema = new Schema({
+const blogSchema = new Schema({
     title: String,
     content: String, // HTML
     rawContent: String, // MARKDOWN
-    category: String, // 分类
+    category: categorySchema, // 分类
     date: { type: String, default: () => { return new Date().toLocaleString(); } }
 });
 
-exports.categorySchema = new Schema({
-    category: String
-});
+module.exports = {blogSchema, categorySchema}

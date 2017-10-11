@@ -22,7 +22,7 @@ class App {
         // 根据中间件数组 创建Promise 链条
         for (const middleware of middlewareArr) {
             this.middlewareChain = this.middlewareChain.then(() => {
-                return middleware(context)
+                return middleware(context);
             })
         }
         return this.middlewareChain;

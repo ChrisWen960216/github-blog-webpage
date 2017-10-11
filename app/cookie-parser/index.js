@@ -7,7 +7,6 @@ module.exports = ctx => {
     const {pathname} = ctx.reqCtx;
     const {cookie} = ctx.req.headers;
     const {resCtx, res} = ctx;
-    const whiteNameList = ['/name_ChrisWen'];
 
     const cookieObj = cookieParser.parse(cookie);
     const cookieStr = time => `authd=hello;Max-Age=${time}`;
@@ -18,9 +17,12 @@ module.exports = ctx => {
                 resCtx.hasUser = true;
                 res.setHeader('Set-Cookie', cookieStr(3600));
             }
+
+            const whiteNameList = ['/chrisWen'];
             if (whiteNameList.indexOf(pathname) > -1) {
                 res.setHeader('Set-Cookie', cookieStr(3600));
             }
+
             if (pathname === '/logout') {
                 res.setHeader('Set-Cookie', cookieStr(0));
             }

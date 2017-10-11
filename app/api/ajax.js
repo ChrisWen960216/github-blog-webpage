@@ -3,12 +3,16 @@
  * Created By ChrisWen
  */
 const Router = require('./router');
-const {$saveBlog, $saveCategory} = require('./mongo');
+const {$saveBlog, $saveCategory, $getCategory} = require('./mongo');
 // 分类列表
-Router.get('/category.action', ctx => {
-    const category = ctx.reqCtx.query;
+Router.post('/category.action', ctx => {
+    const category = ctx.reqCtx.body;
     return $saveCategory(category);
 });
+Router.get('/categoryList.action', ctx => {
+    const {query} = ctx.reqCtx;
+    return $getCategory(query);
+})
 // 添加博客
 Router.post('/blog.action', ctx => {
     const blog = ctx.reqCtx.body;
